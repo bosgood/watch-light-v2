@@ -43,9 +43,10 @@ int isButtonPressed() {
  * Blinks patterns of lights in pairs circling around the band
 */
 
+#define ALTERNATE_NUM_PAIRS 8
 #define ALTERNATE_BLINK_DELAY 50
 
-int alternating_pinPairs[][NUM_PAIRS] = {
+int alternating_pinPairs[][ALTERNATE_NUM_PAIRS] = {
   {0, 8},
   {1, 9},
   {2, 10},
@@ -59,7 +60,7 @@ int alternating_pinPairs[][NUM_PAIRS] = {
 uint8_t alternating_currentPair = 0;
 
 void runPatternAlternating() {
-  if (++alternating_currentPair >= NUM_PAIRS) alternating_currentPair = 0;
+  if (++alternating_currentPair >= ALTERNATE_NUM_PAIRS) alternating_currentPair = 0;
   alternating_turnOnPair(alternating_pinPairs[alternating_currentPair]);
   delay(ALTERNATE_BLINK_DELAY);
   alternating_turnOffPair(alternating_pinPairs[alternating_currentPair]);
