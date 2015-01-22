@@ -1,10 +1,8 @@
-#include <Wire.h>
 #include <Adafruit_NeoPixel.h>
 
 #define NUM_PIXELS 16
-#define NUM_PAIRS 8
-#define INPUT_PIN 5
-#define BUTTON_PIN 6
+#define INPUT_PIN 0
+#define BUTTON_PIN 1
 #define TOGGLE_MODE_DELAY 250
 #define BRIGHTNESS 25
 
@@ -190,7 +188,6 @@ void setup() {
   strip.begin();
   strip.show(); // Initialize all pixels to 'off'
   strip.setBrightness(BRIGHTNESS);
-  Serial.begin(9600);
 }
 
 void loop() {
