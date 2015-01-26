@@ -4,7 +4,7 @@
 #define INPUT_PIN 0
 #define BUTTON_PIN 1
 #define TOGGLE_MODE_DELAY 250
-#define BRIGHTNESS 25
+#define BRIGHTNESS 200
 
 // Parameter 1 = number of pixels in strip
 // Parameter 2 = pin number (most are valid)
