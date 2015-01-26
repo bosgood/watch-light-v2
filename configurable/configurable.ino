@@ -82,51 +82,64 @@ void alternating_turnOffPair(int pair[]) {
 
 /**
  * PATTERN 2
- * Green/Pink
+ * Two-Color
  * Blinks in two colors in a ring
  */
 
-#define GREEN_PINK_BLINK_DELAY 5
-#define GREEN_PINK_NUM_COLORS 10
+#define TWO_COLOR_BLINK_DELAY 5
+#define TWO_COLOR_NUM_COLORS 10
 
-int greenPink_currentPixel = 0;
-int greenPink_direction;
-int greenPink_colorIndex = 0;
+int twoColor_currentPixel = 0;
+int twoColor_direction;
+int twoColor_colorIndex = 0;
 
 // Here is where you can put in your favorite colors that will appear!
 // just add new {nnn, nnn, nnn}, lines. They will be picked out randomly
 //                                  R   G   B
-uint8_t colorList[][GREEN_PINK_NUM_COLORS] = {
-  {0, 255, 0},
-  {255, 0, 255},
-  {0, 255, 0},
-  {255, 0, 255},
-  {0, 255, 0},
-  {255, 0, 255},
-  {0, 255, 0},
-  {255, 0, 255},
-  {0, 255, 0},
-  {255, 0, 255}
+uint8_t colorList[][TWO_COLOR_NUM_COLORS] = {
+  // // Green/Pink
+  // {0, 255, 0},
+  // {255, 0, 255},
+  // {0, 255, 0},
+  // {255, 0, 255},
+  // {0, 255, 0},
+  // {255, 0, 255},
+  // {0, 255, 0},
+  // {255, 0, 255},
+  // {0, 255, 0},
+  // {255, 0, 255}
+
+  // Red/Yellow
+  {255, 0, 0},
+  {255, 255, 0},
+  {255, 0, 0},
+  {255, 255, 0},
+  {255, 0, 0},
+  {255, 255, 0},
+  {255, 0, 0},
+  {255, 255, 0},
+  {255, 0, 0},
+  {255, 255, 0}
 };
 
-void runGreenPinkPattern() {
-  if (++greenPink_colorIndex == GREEN_PINK_NUM_COLORS) {
-    greenPink_colorIndex = 0;
+void runTwoColorPattern() {
+  if (++twoColor_colorIndex == TWO_COLOR_NUM_COLORS) {
+    twoColor_colorIndex = 0;
   }
 
-  int red = colorList[greenPink_colorIndex][0];
-  int green = colorList[greenPink_colorIndex][1];
-  int blue = colorList[greenPink_colorIndex][2];
+  int red = colorList[twoColor_colorIndex][0];
+  int green = colorList[twoColor_colorIndex][1];
+  int blue = colorList[twoColor_colorIndex][2];
 
   // Bounds detection
-  if (greenPink_currentPixel == 0) {
-    greenPink_direction = 1;
-  } else if (greenPink_currentPixel == NUM_PIXELS) {
-    greenPink_direction = -1;
+  if (twoColor_currentPixel == 0) {
+    twoColor_direction = 1;
+  } else if (twoColor_currentPixel == NUM_PIXELS) {
+    twoColor_direction = -1;
   }
 
   // Advancing the pixel
-  greenPink_currentPixel = greenPink_currentPixel + (1 * greenPink_direction);
+  twoColor_currentPixel = twoColor_currentPixel + (1 * twoColor_direction);
 
   // now we will 'fade' it in 5 steps
   for (int x = 0; x < 5; x++) {
@@ -134,9 +147,9 @@ void runGreenPinkPattern() {
     int g = green * (x+1); g /= 5;
     int b = blue * (x+1); b /= 5;
 
-    strip.setPixelColor(greenPink_currentPixel, strip.Color(r, g, b));
+    strip.setPixelColor(twoColor_currentPixel, strip.Color(r, g, b));
     strip.show();
-    delay(GREEN_PINK_BLINK_DELAY);
+    delay(TWO_COLOR_BLINK_DELAY);
   }
 
   // & fade out in 5 steps
@@ -145,9 +158,9 @@ void runGreenPinkPattern() {
     int g = green * x; g /= 5;
     int b = blue * x; b /= 5;
 
-    strip.setPixelColor(greenPink_currentPixel, strip.Color(r, g, b));
+    strip.setPixelColor(twoColor_currentPixel, strip.Color(r, g, b));
     strip.show();
-    delay(GREEN_PINK_BLINK_DELAY);
+    delay(TWO_COLOR_BLINK_DELAY);
   }
 }
 
@@ -181,7 +194,7 @@ int currentPattern = 0;
 
 char *PATTERN_NAMES[NUM_PATTERNS] = {
   "rainbow",
-  "greenPink",
+  "twoColor",
   "alternating"
 };
 
@@ -204,7 +217,7 @@ void loop() {
       runRainbowPattern();
       break;
     case 1:
-      runGreenPinkPattern();
+      runTwoColorPattern();
       break;
     case 2:
       runPatternAlternating();
